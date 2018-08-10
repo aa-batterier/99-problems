@@ -1,6 +1,7 @@
 ; Problem 20 here as help function for problem 23.
 (defun remove-at (l r)
-  (append (subseq l 0 r) (nthcdr r l)))
+  (if (> r (length l)) l
+    (append (subseq l 0 r) (nthcdr (1+ r) l))))
 
 ; Problem 23.
 ; Extract a given number of random selected elements from a list.
