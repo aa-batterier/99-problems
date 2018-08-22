@@ -1,0 +1,188 @@
+; Problem 26.
+; Generate all sublists to the list with a set aomunt.
+(defun combination (n l)
+  (let ((start (first l)))
+    (cond ((zerop n) '(nil))
+	  ((endp l) nil)
+	  (t (append (mapcar #'(lambda (element)
+				 (cons start element))
+			     (combination (1- n) (rest l)))
+		     (combination n (rest l)))))))
+#|
+* (combination 3 '(a b c d e f))
+  0: (COMBINATION 3 (A B C D E F))
+    1: (COMBINATION 2 (B C D E F))
+      2: (COMBINATION 1 (C D E F))
+        3: (COMBINATION 0 (D E F))
+        3: COMBINATION returned (NIL)
+        3: (COMBINATION 1 (D E F))
+          4: (COMBINATION 0 (E F))
+          4: COMBINATION returned (NIL)
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+        3: COMBINATION returned ((D) (E) (F))
+      2: COMBINATION returned ((C) (D) (E) (F))
+      2: (COMBINATION 2 (C D E F))
+        3: (COMBINATION 1 (D E F))
+          4: (COMBINATION 0 (E F))
+          4: COMBINATION returned (NIL)
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+        3: COMBINATION returned ((D) (E) (F))
+        3: (COMBINATION 2 (D E F))
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+          4: (COMBINATION 2 (E F))
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+            5: (COMBINATION 2 (F))
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+          4: COMBINATION returned ((E F))
+        3: COMBINATION returned ((D E) (D F) (E F))
+      2: COMBINATION returned ((C D) (C E) (C F) (D E) (D F) (E F))
+    1: COMBINATION returned
+         ((B C) (B D) (B E) (B F) (C D) (C E) (C F) (D E) (D F) (E F))
+    1: (COMBINATION 3 (B C D E F))
+      2: (COMBINATION 2 (C D E F))
+        3: (COMBINATION 1 (D E F))
+          4: (COMBINATION 0 (E F))
+          4: COMBINATION returned (NIL)
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+        3: COMBINATION returned ((D) (E) (F))
+        3: (COMBINATION 2 (D E F))
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+          4: (COMBINATION 2 (E F))
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+            5: (COMBINATION 2 (F))
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+          4: COMBINATION returned ((E F))
+        3: COMBINATION returned ((D E) (D F) (E F))
+      2: COMBINATION returned ((C D) (C E) (C F) (D E) (D F) (E F))
+      2: (COMBINATION 3 (C D E F))
+        3: (COMBINATION 2 (D E F))
+          4: (COMBINATION 1 (E F))
+            5: (COMBINATION 0 (F))
+            5: COMBINATION returned (NIL)
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+          4: COMBINATION returned ((E) (F))
+          4: (COMBINATION 2 (E F))
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+            5: (COMBINATION 2 (F))
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+          4: COMBINATION returned ((E F))
+        3: COMBINATION returned ((D E) (D F) (E F))
+        3: (COMBINATION 3 (D E F))
+          4: (COMBINATION 2 (E F))
+            5: (COMBINATION 1 (F))
+              6: (COMBINATION 0 NIL)
+              6: COMBINATION returned (NIL)
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned ((F))
+            5: (COMBINATION 2 (F))
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+          4: COMBINATION returned ((E F))
+          4: (COMBINATION 3 (E F))
+            5: (COMBINATION 2 (F))
+              6: (COMBINATION 1 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+            5: (COMBINATION 3 (F))
+              6: (COMBINATION 2 NIL)
+              6: COMBINATION returned NIL
+              6: (COMBINATION 3 NIL)
+              6: COMBINATION returned NIL
+            5: COMBINATION returned NIL
+          4: COMBINATION returned NIL
+        3: COMBINATION returned ((D E F))
+      2: COMBINATION returned ((C D E) (C D F) (C E F) (D E F))
+    1: COMBINATION returned
+         ((B C D) (B C E) (B C F) (B D E) (B D F) (B E F) (C D E) (C D F)
+		            (C E F) (D E F))
+  0: COMBINATION returned
+       ((A B C) (A B D) (A B E) (A B F) (A C D) (A C E) (A C F) (A D E) (A D F)
+		        (A E F) (B C D) (B C E) (B C F) (B D E) (B D F) (B E F) (C D E) (C D F)
+			        (C E F) (D E F))
+((A B C) (A B D) (A B E) (A B F) (A C D) (A C E) (A C F) (A D E) (A D F)
+	  (A E F) (B C D) (B C E) (B C F) (B D E) (B D F) (B E F) (C D E) (C D F)
+	   (C E F) (D E F))
+|#
