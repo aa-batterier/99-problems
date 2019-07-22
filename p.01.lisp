@@ -11,3 +11,7 @@
   (cond ((null l) nil)
 	((null (cdr l)) (list (first l)))
 	(t (my-last-v3 (cdr l)))))
+
+(defmacro my-last-macro (l)
+  `(if ,l
+     (list (first (reverse ,l)))))
